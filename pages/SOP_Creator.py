@@ -6,9 +6,6 @@ from docx import Document
 from docx.shared import Pt
 from components.unclassed import display_banner
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 display_banner()
 
@@ -21,7 +18,7 @@ except ImportError:
     st.stop()
 
 # Constants
-API_KEY = os.getenv("api_key")
+API_KEY = st.secrets["api_key"]
 
 SYSTEM_PROMPT = """
 Create a clear and simple Standard Operating Procedure (SOP)
