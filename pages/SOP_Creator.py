@@ -5,6 +5,10 @@ import io
 from docx import Document
 from docx.shared import Pt
 from components.unclassed import display_banner
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 display_banner()
 
@@ -17,7 +21,7 @@ except ImportError:
     st.stop()
 
 # Constants
-YOUR_API_KEY = "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"
+API_KEY = os.getenv("api_key")
 
 SYSTEM_PROMPT = """
 Create a clear and simple Standard Operating Procedure (SOP)
@@ -55,7 +59,7 @@ def generate_sop(title: str, actions: str) -> str:
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": f"User has provided the following title and actions as a starting point for the SOP: {title} - {actions}"}
     ]
-    client = OpenAI(api_key=YOUR_API_KEY, base_url="https://api.perplexity.ai")
+    client = OpenAI(api_key=API_KEY, base_url="https://api.perplexity.ai")
     response = client.chat.completions.create(
         model="sonar-reasoning-pro",
         messages=messages,
